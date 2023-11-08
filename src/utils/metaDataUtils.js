@@ -4,12 +4,12 @@ const routeMetadata = {
     description: "Description for the home page",
     keywords: "home, page, keywords",
   },
-  "/about-us": {
+  "/aboutus": {
     title: "About Us",
     description: "Learn more about our company",
     keywords: "about, us, company",
   },
-  "/contact-us": {
+  "/contactus": {
     title: "Contact Us",
     description: "Contact us for more information",
     keywords: "contact, information",
@@ -29,80 +29,10 @@ const routeMetadata = {
     description: "Forgot your password?",
     keywords: "forgot, password",
   },
-  "/signup/recruiter": {
-    title: "Recruiter Registration",
-    description: "Register as a recruiter",
-    keywords: "recruiter, registration",
-  },
-  "/signup/jobseeker": {
-    title: "Job Seeker Registration",
-    description: "Register as a job seeker",
-    keywords: "job, seeker, registration",
-  },
-  "/signup/college": {
-    title: "College Registration",
-    description: "Register as a college",
-    keywords: "college, registration",
-  },
-
-  "/jobseeker/profile": {
-    title: "Profile",
-    description: "Profile",
-    keywords: "profile",
-  },
-
-  "/recruiter/profile": {
-    title: "Profile",
-    description: "Profile",
-    keywords: "profile",
-  },
-
-  "/jobseeker/alljobs": {
-    title: "All Jobs",
-    description: "All Jobs",
-    keywords: "all, jobs",
-  },
-
-  "/jobseeker/appliedjobs": {
-    title: "Applied Jobs",
-    description: "Applied Jobs",
-    keywords: "applied, jobs",
-  },
-
-  "/jobseeker/jobdetails": {
-    title: "Job Details",
-    description: "Job Details",
-    keywords: "job, details",
-  },
-
-  "/verifyotp": {
-    title: "Verify OTP",
-    description: "Verify OTP",
-    keywords: "verify, otp",
-  },
-
-  "/postedjobs": {
-    title: "Posted Jobs",
-    description: "Posted Jobs",
-    keywords: "posted, jobs",
-  },
-
-  "/recruiter/applicant": {
-    title: "Applicants",
-    description: "Applicants",
-    keywords: "applicants",
-  },
-
-  "/recruiter/jobdetails": {
-    title: "Job Details",
-    description: "Job Details",
-    keywords: "job, details",
-  },
-
-  "/recruiter/editjob": {
-    title: "Edit Job",
-    description: "Edit Job",
-    keywords: "edit, job",
+  "/unauthorized": {
+    title: "Unauthorized",
+    description: "You are not authorized to view this page",
+    keywords: "unauthorized, access",
   },
 };
 
@@ -114,7 +44,17 @@ const routeMetadata = {
  */
 
 export const initializeMetadata = (pathname) => {
-  setMetadata(routeMetadata[pathname]);
+  const metadata = routeMetadata[pathname];
+  if (!metadata) {
+    // not found
+    setMetadata({
+      title: "Page Not Found",
+      description: "Page Not Found",
+      keywords: "404,Page Not Found,Not Found",
+    });
+    return;
+  }
+  setMetadata(metadata);
 };
 
 /**
@@ -134,16 +74,12 @@ export const initializeMetadata = (pathname) => {
 
 export function setMetadata(
   metadata = {
-    title: "EmployeeX",
+    title: "title",
     description: "Default page description",
     keywords: "default, keywords",
   }
 ) {
-  const {
-    title = "EmployeeX",
-    description = "Default page description",
-    keywords = "default, keywords",
-  } = metadata;
+  const { title, description, keywords } = metadata;
 
   document.title = title;
 
